@@ -18,11 +18,12 @@ Ember.Router.reopen({
 
     var event = arguments[0];
     var path  = arguments[1];
-    
+
     var transactionEvent = TransactionEvent.create({
       type: event,
       payload: {
-        path: path
+        path: path,
+        previousPath: window.location.pathname
       }
     });
 
