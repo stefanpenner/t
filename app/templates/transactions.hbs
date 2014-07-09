@@ -1,0 +1,12 @@
+<ul>
+{{#each this}}
+  <li> transaction #: {{id}}</li>
+  <li>
+    <ul>
+    {{#each events}}
+      <li>{{type}} {{uuid}} @ {{format-time time}} :<pre>{{{x-stringify payload}}}</pre></li>
+    {{/each}}
+    </ul>
+  </li>
+{{/each}}
+</ul>

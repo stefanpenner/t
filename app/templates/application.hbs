@@ -1,0 +1,12 @@
+<h2 id='title'>Welcome to Ember.js</h2>
+{{#link-to "index"}}lhome{{/link-to}}
+{{#link-to "apple"}}apple{{/link-to}}
+{{outlet}}
+
+<hr />
+
+<h1>ActiveTransactions</h1>
+{{render "transactions" transactionService._activeTransactions}}
+
+<h1>RecentTransactions</h1>
+{{render "transactions" transactionService._recentTransactions}}
