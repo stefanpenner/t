@@ -43,6 +43,16 @@ Transaction.prototype.addEvent = function(event) {
 
 export default Ember.Object.extend({
   history: 10,
+  toJSON: function(){
+    var serializedObj = {};
+    // uniq all stored transactions
+    var transactions = this.get('_activeTransactions').concat(this.get('_recentTransactions')).uniq();
+    transactions.map(function(transaction){
+      return transaction.toJSON();
+    });
+    serializedObj['transactions'] = transactions;
+    return serializedObj; 
+  },
   init: function() {
     this._activeTransactions = Ember.A();
     this._recentTransactions = Ember.A();
