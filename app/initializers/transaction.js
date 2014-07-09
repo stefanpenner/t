@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import TransactionEvent from 't/models/transaction-event';
 
 export default {
   name: 'transaction',
@@ -17,13 +18,15 @@ Ember.Router.reopen({
 
     var event = arguments[0];
     var path  = arguments[1];
-
-    transaction.addEvent({
+    
+    var transactionEvent = TransactionEvent.create({
       type: event,
       payload: {
         path: path
       }
     });
+
+    transaction.addEvent(transactionEvent);
 
     return this._super.apply(this, arguments).promise.finally(function() {
       transaction.end();

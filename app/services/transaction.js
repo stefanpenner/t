@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import TransactionEvent from 't/models/transaction-event';
 
 var ACTIVE    = 0;
 var COMPLETED = 1;
@@ -65,24 +66,24 @@ export default Ember.Object.extend({
     xhr.setRequestHeader("X-HORIZON-USER-TRANSACTIONS", this.serializedActiveTransactionIds());
     xhr.__horizon_request_id__ = uuid();
 
-    this.addEvent({
+    this.addEvent(TransactionEvent.create({
       type: 'ajax:start',
       uuid: xhr.__horizon_request_id__,
       payload: {
         url: settings.url,
         method: settings.type
       }
-    });
+    }));
   },
 
   didSendAjax: function(event, xhr) {
-    this.addEvent({
+    this.addEvent(TransactionEvent.create({
       type: 'ajax:end',
       uuid: xhr.__horizon_request_id__,
       payload: {
         status:  xhr.status
       }
-    });
+    }));
   },
 
   addEvent: function(event) {
