@@ -20,6 +20,15 @@ function Transaction(manager, parentId) {
   this.parentId = parentId;
 }
 
+Transaction.prototype.toJSON = function() {
+  return {
+    id:       this.id,
+    parentId: this.parentId,
+    state:    this.state,
+    events:   this.events
+  };
+}
+
 Transaction.prototype.end = function() {
   this.state = COMPLETED;
 
