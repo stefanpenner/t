@@ -12,11 +12,12 @@ function uuid() {
   });
 }
 
-function Transaction(manager) {
-  this.manager = manager;
-  this.id      = uuid();
-  this.state   = ACTIVE;
-  this.events  = Ember.A();
+function Transaction(manager, parentId) {
+  this.manager  = manager;
+  this.id       = uuid();
+  this.state    = ACTIVE;
+  this.events   = Ember.A();
+  this.parentId = parentId;
 }
 
 Transaction.prototype.end = function() {
@@ -95,7 +96,8 @@ export default Ember.Object.extend({
   },
 
   start: function() {
-    var transaction = new Transaction(this);
+    var parentTransaction = this._activeTransactions[this._activeTransactions.length];
+    var transaction = new Transaction(this, parentTransaction && parentTransaction.id);
     this.addTransaction(transaction);
     return transaction;
   },
