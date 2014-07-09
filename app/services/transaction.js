@@ -46,11 +46,11 @@ export default Ember.Object.extend({
   toJSON: function(){
     var serializedObj = {};
     // uniq all stored transactions
-    var transactions = this.get('_activeTransactions').concat(this.get('_recentTransactions')).uniq();
-    transactions.map(function(transaction){
+    var uniqTransactions = this.get('_activeTransactions').concat(this.get('_recentTransactions')).uniq();
+    var serializedTransactions = uniqTransactions.map(function(transaction){
       return transaction.toJSON();
     });
-    serializedObj['transactions'] = transactions;
+    serializedObj['transactions'] = serializedTransactions;
     return serializedObj; 
   },
   init: function() {
